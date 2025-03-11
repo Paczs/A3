@@ -16,7 +16,26 @@
 
         const normalRanks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
-        
+        const createDeck = () => {
+            const deck = [];
+
+            normalSuits.forEach(suit => {
+                normalRanks.forEach(rank => {
+                    deck.push({suit, rank});
+                });
+            });
+            return deck;
+        }
+        const Card = ({ suit, rank, isPicked, onClick }) => (
+      <div
+        className={`card ${isPicked ? 'picked' : ''}`}
+        onClick={onClick}
+      >
+        <div className="cardValue">{rank}</div>
+        <div className="cardSuit">{suit}</div>
+      </div>
+    );
+
     
 
     </script>
