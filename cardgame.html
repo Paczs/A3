@@ -155,7 +155,11 @@
     }
     setSelectedCards(shuffledCards);
   }
-  
+  const addWildcard = () => {
+    const randomSuit = normalSuits[Math.floor(Math.random() * normalSuits.length)];
+    const randomRank = normalRanks[Math.floor(Math.random() * normalRanks.length)];
+    setSelectedCards(selectedCards.concat({ suit: randomSuit, rank: randomRank }));
+  }
 
   
   };
