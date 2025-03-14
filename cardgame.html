@@ -149,37 +149,15 @@
             };
   const shuffleCards = () => {
     shuffledCards = selectedCards.slice();
-    
+    for (let i = shuffledCards.length - 1; i > 0; i--) {
+      const k = Math.floor(Math.random() * (i + 1));
+      [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
+    }
+    setSelectedCards(shuffledCards);
   }
+  
 
-  return (
-    <div className="deck-container">
-      <div className="deck" onClick={() => dealCards(1)}>
-        {deck.length === 0 ? "No Cards Remaining" : "Deck"}
-      </div>
-      
-      <div className="button-container">
-        <button onClick={() => dealCards(5)}>Deal 5</button>
-        <button onClick={() => dealCards(7)}>Deal 7</button>
-        <button onClick={resetDeck}>Reset</button>
-        <button onClick={tossCard}>Toss</button>
-        <button onClick={shuffleCards}>Regroup</button>
-        <button onClick={addWildcard}>Wildcard</button>
-      </div>
-
-      <div className="cards-container">
-        {selectedCards.map((card, index) => (
-          <Card
-            key={index}
-            value={card.value}
-            suit={card.suit}
-            selected={pickedCard === index}
-            onClick={() => handleCardClick(index)}
-          />
-        ))}
-      </div>
-    </div>
-  );
+  
   };
   ReactDOM.render(<Deck />, document.getElementById('root'));
 
