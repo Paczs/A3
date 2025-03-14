@@ -7,11 +7,83 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+   <!-- <style>
+     /*  /* Add your styling here */
+      .card {
+          width: 60px;
+          height: 90px;
+          border: 1px solid #000;
+          border-radius: 5px;
+          margin: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: white;
+          font-size: 18px;
+          font-family: Arial, sans-serif;
+      }
+
+      .card-value, .card-suit {
+          position: absolute;
+      }
+
+      .card-value {
+          top: 5px;
+          left: 5px;
+      }
+
+      .card-suit {
+          bottom: 5px;
+          right: 5px;
+      }
+
+      .deck-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+
+      .deck {
+          width: 100px;
+          height: 140px;
+          border: 1px solid #000;
+          border-radius: 5px;
+          margin: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #f3f3f3;
+          cursor: pointer;
+      }
+
+      .button-container {
+          display: flex;
+          justify-content: space-around;
+          width: 100%;
+          margin-bottom: 20px;
+      }
+
+      button {
+          padding: 10px;
+          margin: 5px;
+          font-size: 16px;
+          cursor: pointer;
+      }
+
+      .cards-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          width: 80%;
+      } */
+  </style>-->
+
 </head>
 <body>
     <div id="root">Hello!</div>
     <script type="text/babel">
         const {useState} = React;
+        const Deck = () => {
         const normalSuits = ['♥', '♦', '♣', '♠'];
 
         const normalRanks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -68,7 +140,48 @@
     setDeck(createDeck());
   }
 
+  const tossCard = () => {
+                if (pickedCard !== null) {
+                    const newCards = selectedCards.filter((j, index) => index !== pickedCard);
+                    setSelectedCards(newCards);
+                    setPickedCard(null);
+                }
+            };
+  const shuffleCards = () => {
+    shuffledCards = selectedCards.slice();
     
+  }
+
+  return (
+    <div className="deck-container">
+      <div className="deck" onClick={() => dealCards(1)}>
+        {deck.length === 0 ? "No Cards Remaining" : "Deck"}
+      </div>
+      
+      <div className="button-container">
+        <button onClick={() => dealCards(5)}>Deal 5</button>
+        <button onClick={() => dealCards(7)}>Deal 7</button>
+        <button onClick={resetDeck}>Reset</button>
+        <button onClick={tossCard}>Toss</button>
+        <button onClick={shuffleCards}>Regroup</button>
+        <button onClick={addWildcard}>Wildcard</button>
+      </div>
+
+      <div className="cards-container">
+        {selectedCards.map((card, index) => (
+          <Card
+            key={index}
+            value={card.value}
+            suit={card.suit}
+            selected={pickedCard === index}
+            onClick={() => handleCardClick(index)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+  };
+  ReactDOM.render(<Deck />, document.getElementById('root'));
 
     </script>
 </body>
